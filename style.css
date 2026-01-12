@@ -1,0 +1,296 @@
+/* --- Design System Variables --- */
+:root {
+    /* Colors - Light Mode (Pastel Green Theme) */
+    --bg-main: #fafffb; /* Very Light Mint Background */
+    --bg-card: #ffffff;
+    --bg-nav: rgba(255, 255, 255, 0.95);
+    
+    /* Text Colors - No Blue allowed */
+    --text-primary: #24dbaa;   /* Dark Green (Almost Black) for Headings */
+    --text-secondary: #334155; /* Slate Gray for body text */
+    
+    /* Accent Colors - Pastel & Vibrant */
+    --accent: #10b981;         /* Emerald 500 (Primary Action) */
+    --accent-hover: #059669;   /* Emerald 600 (Hover) */
+    --accent-soft: #d1fae5;    /* Pastel Mint (Backgrounds/Badges) */
+    
+    --border-color: #d1fae5;   /* Soft Green Border */
+    --shadow-sm: 0 4px 6px -1px rgba(16, 185, 129, 0.1);
+    --shadow-lg: 0 20px 25px -5px rgba(16, 185, 129, 0.15), 0 8px 10px -6px rgba(16, 185, 129, 0.1);
+    
+    /* Global Radius */
+    --radius-md: 1rem;
+    --radius-lg: 1.5rem;
+    --radius-full: 9999px;
+
+    /* Transitions */
+    --trans-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --trans-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-bs-theme="dark"] {
+    /* Colors - Dark Mode (True Dark, No Green Tint in BG) */
+    --bg-main: #020617;      /* Pure Dark Slate */
+    --bg-card: #0f172a;      /* Dark Slate Card */
+    --bg-nav: rgba(2, 6, 23, 0.9);
+    
+    --text-primary: #f1f5f9; /* White-ish */
+    --text-secondary: #94a3b8; /* Cool Gray */
+    
+    /* Neon Green Accents for Dark Mode */
+    --accent: #34d399;       /* Emerald 400 (Neon Mint) */
+    --accent-hover: #10b981; /* Emerald 500 */
+    --accent-soft: rgba(52, 211, 153, 0.15); /* Low Opacity Neon */
+    
+    --border-color: #1e293b;
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+/* --- Base Reset & Typography --- */
+body {
+    background-color: var(--bg-main);
+    color: var(--text-secondary); /* Default body color */
+    font-family: 'Kanit', 'Sarabun', sans-serif;
+    transition: background-color var(--trans-smooth), color var(--trans-smooth);
+    overflow-x: hidden;
+    padding-top: 80px;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--text-primary); /* Force Dark Green/White */
+}
+
+a { 
+    text-decoration: none; 
+    color: inherit; 
+    transition: var(--trans-fast);
+}
+
+a:hover {
+    color: var(--accent);
+}
+
+/* --- Bootstrap Overrides (Fixing the Blue Issue) --- */
+.text-primary { color: var(--accent) !important; }
+.bg-primary { background-color: var(--accent) !important; }
+.border-primary { border-color: var(--accent) !important; }
+
+.text-muted { color: var(--text-secondary) !important; opacity: 0.8; }
+
+/* --- Component: Navbar --- */
+.custom-navbar {
+    background-color: var(--bg-nav);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 0;
+}
+
+.nav-link-custom {
+    color: var(--text-secondary);
+    font-weight: 600;
+    padding: 0.5rem 1.2rem;
+    border-radius: var(--radius-full);
+    transition: var(--trans-fast);
+}
+
+.nav-link-custom:hover, .nav-link-custom.active {
+    color: var(--accent); /* Green Text */
+    background-color: var(--accent-soft); /* Pastel Green BG */
+}
+
+/* --- Component: Cards --- */
+.card-custom {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: var(--trans-smooth);
+    height: 100%;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+}
+
+.card-custom:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent);
+}
+
+.card-img-wrapper {
+    position: relative;
+    padding-top: 130%; 
+    overflow: hidden;
+    background-color: var(--bg-main);
+}
+
+.card-img-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--trans-smooth);
+}
+
+.card-custom:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.card-body-custom {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Badges & Status --- */
+.status-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    letter-spacing: 0.5px;
+}
+
+.bg-popular { background: #f59e0b; color: white; } /* Orange still works for contrast */
+.bg-new { background: var(--accent); color: white; } /* Green for New */
+.bg-soon { background: var(--text-secondary); color: white; }
+
+.card-disabled {
+    pointer-events: none;
+    filter: grayscale(100%) opacity(0.7);
+}
+
+/* --- Buttons (Fixing Blue Buttons) --- */
+.btn-primary-custom {
+    background-color: var(--accent);
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    transition: var(--trans-fast);
+}
+
+.btn-primary-custom:hover {
+    background-color: var(--accent-hover);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.btn-outline-custom {
+    background-color: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-primary); /* Dark Text */
+    padding: 0.6rem 1.25rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    transition: var(--trans-fast);
+}
+
+.btn-outline-custom:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background-color: var(--accent-soft);
+}
+
+/* --- Specific Text Colors --- */
+.text-price { color: var(--accent); font-weight: 800; font-size: 1.25rem; }
+.text-muted-custom { color: var(--text-secondary); opacity: 0.8; }
+.section-title { 
+    margin-bottom: 2rem; 
+    border-left: 5px solid var(--accent); 
+    padding-left: 1rem; 
+    color: var(--text-primary);
+}
+
+/* --- Detail Page Specifics --- */
+.main-gallery-img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    cursor: zoom-in;
+    box-shadow: var(--shadow-lg);
+}
+
+.thumb-gallery {
+    display: flex;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.thumb-item {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    border: 2px solid transparent;
+    opacity: 0.7;
+    transition: var(--trans-fast);
+}
+
+.thumb-item.active, .thumb-item:hover {
+    border-color: var(--accent);
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+/* --- Mobile Fixes --- */
+@media (max-width: 768px) {
+    body { font-size: 14px; }
+    h1, .display-1, .display-2, .display-3 { font-size: 2rem !important; }
+    h2, .display-4, .display-5 { font-size: 1.5rem !important; }
+    .btn-lg { padding: 0.5rem 1rem; font-size: 0.9rem; }
+    .card-body-custom { padding: 1rem; }
+}
+
+/* --- Custom Utilities --- */
+.bg-gradient-text {
+    background: linear-gradient(to right, var(--text-primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.creator-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--bg-card);
+    box-shadow: var(--shadow-sm);
+}
+
+.trust-card {
+    background: var(--bg-card);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    text-align: center;
+    height: 100%;
+}
+.trust-icon {
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    background: var(--accent-soft);
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-inline: auto;
+}
